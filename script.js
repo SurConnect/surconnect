@@ -1,3 +1,5 @@
+alert("JavaScript Loaded");
+
 const api = "https://sheetdb.io/api/v1/ixxby18l8vjrm";
 
 const members = document.getElementById("members");
