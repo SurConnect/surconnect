@@ -12,27 +12,31 @@
 
 <header class="navbar">
 
-<div class="logo">
-<h2>🎵 SurConnect</h2>
-</div>
+  <div class="logo">
+    <h2>🎵 SurConnect</h2>
+  </div>
 
-<div class="search-box">
-<input type="text" id="search" placeholder="Search artists...">
-</div>
-
-<div class="join-btn">
-<button id="joinBtn">Join Now</button>
-</div>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search artists...">
+  </div>
 
 </header>
 
+<!-- FILTERS -->
+<div class="filters">
+  <button onclick="filterRole('All')">All</button>
+  <button onclick="filterRole('Singer')">Singer</button>
+  <button onclick="filterRole('Rapper')">Rapper</button>
+  <button onclick="filterRole('Music Producer')">Producer</button>
+  <button onclick="filterRole('Lyricist')">Lyricist</button>
+</div>
+
 <section class="hero">
-<h1>Find Music Partners</h1>
-<p>Connect with Singers, Rappers, Producers & Lyricists.</p>
+  <h1>Find Music Partners</h1>
+  <p>Connect with Singers, Rappers, Producers & Lyricists.</p>
 </section>
 
-<section class="members" id="members">
-</section>
+<section class="members" id="members"></section>
 
 <script src="./script.js"></script>
 
