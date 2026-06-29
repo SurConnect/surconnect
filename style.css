@@ -7,10 +7,31 @@ body {
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 15px;
   background: #111;
   color: white;
-  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box input {
+  padding: 8px;
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+}
+
+.join-btn button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #ff0055;
+  color: white;
+  cursor: pointer;
+}
+
+.join-btn button:hover {
+  background: #e6004c;
 }
 
 .search-box input {
