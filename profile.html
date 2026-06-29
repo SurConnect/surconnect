@@ -3,7 +3,14 @@ const container = document.getElementById("profile");
 const user = JSON.parse(localStorage.getItem("selectedUser"));
 
 if (!user) {
-  container.innerHTML = "<p>No profile data found</p>";
+  container.innerHTML = `
+    <div class="profile-card">
+      <h2>No profile data found</h2>
+      <button onclick="window.location.href='index.html'">
+        ⬅ Back to Home
+      </button>
+    </div>
+  `;
 } else {
 
   function get(key) {
