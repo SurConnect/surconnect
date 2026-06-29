@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Connect - Find Singers & Producers</title>
@@ -10,42 +11,123 @@
         header { text-align: center; padding: 40px 0; }
         header h1 { color: #ff0055; font-size: 2.5rem; }
         header p { color: #aaa; margin-top: 10px; }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
-        .card { background: #1e1e1e; border: 1px solid #333; border-radius: 10px; width: 280px; padding: 20px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0055; }
-        .card h3 { margin: 15px 0 5px 0; }
+        
+        .join-btn-container { text-align: center; margin-bottom: 30px; }
+        .join-btn { display: inline-block; background: #25d366; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: 0.3s; }
+        .join-btn:hover { transform: scale(1.05); background: #20ba5a; }
+
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
+        .card { background: #1e1e1e; border: 1px solid #333; border-radius: 10px; width: 300px; padding: 20px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0055; background: #333; }
+        .card h3 { margin: 15px 0 5px 0; font-size: 1.4rem; }
         .tag { display: inline-block; background: #ff0055; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
-        .bio { font-size: 14px; color: #bbb; min-height: 40px; margin-bottom: 15px; }
-        .btn { display: inline-block; background: #0077ff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; }
+        
+        .info-list { text-align: left; margin-bottom: 15px; font-size: 14px; color: #ccc; }
+        .info-list p { margin-bottom: 5px; }
+        .info-list strong { color: #ff0055; }
+
+        .bio { font-size: 14px; color: #bbb; min-height: 40px; margin-bottom: 15px; text-align: left; font-style: italic; }
+        
+        .links-container { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .btn { display: inline-block; background: #0077ff; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; text-align: center; }
         .btn:hover { background: #0055cc; }
+        .btn.youtube { background: #ff0000; }
+        .btn.youtube:hover { background: #cc0000; }
+        
+        .loading { font-size: 18px; color: #aaa; text-align: center; width: 100%; margin-top: 40px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Music Connect</h1>
-        <p>सिंगर्स, रैपर्स और म्यूज़िक प्रोड्यूसर्स को एक जगह ढूँढें और कनेक्ट करें।</p>
+        <p>Singers, Rappers aur Music Producers ko ek jagah dhundhein aur connect karein.</p>
     </header>
 
-    <div class="container">
-        <!-- Profile 1 -->
-        <div class="card">
-            <img src="https://via.placeholder.com/100" alt="Artist Profile">
-            <h3>MC Krrish</h3>
-            <span class="tag">Rapper / Lyricist</span>
-            <p class="bio">Delhi-based hip-hop artist looking to collaborate with beatmakers.</p>
-            <a href="https://instagram.com" target="_blank" class="btn">Connect on Insta</a>
-        </div>
-
-        <!-- Profile 2 -->
-        <div class="card">
-            <img src="https://via.placeholder.com/100" alt="Artist Profile">
-            <h3>Beat Master</h3>
-            <span class="tag">Music Producer</span>
-            <p class="bio">Making lo-fi and trap beats. Open for new projects.</p>
-            <a href="https://instagram.com" target="_blank" class="btn">Connect on Insta</a>
-        </div>
+    <div class="join-btn-container">
+        <a href="https://forms.gle/gi7yRF1G1bzguBGD6" target="_blank" class="join-btn">🚀 Add Your Profile (Register Here)</a>
     </div>
 
+    <div class="container" id="profiles-container">
+        <div class="loading">Artists profiles load ho rahi hain...</div>
+    </div>
+
+    <script>
+        const apiURL = "https://sheetdb.io/api/v1/ixxby18l8vjrm";
+
+        // Helper function taaki kisi bhi tarah ke spaces/case ko match kiya ja sake
+        function getValue(obj, key) {
+            if (!obj) return "";
+            // Pehle exact match check karein
+            if (obj[key] !== undefined) return obj[key];
+            
+            // Agar exact match na mile, to bina space aur lowercase karke dhoondhein
+            const normalizedKey = key.toLowerCase().replace(/\s+/g, '');
+            for (let k in obj) {
+                if (k.toLowerCase().replace(/\s+/g, '') === normalizedKey) {
+                    return obj[k];
+                }
+            }
+            return "";
+        }
+
+        async function fetchProfiles() {
+            try {
+                const response = await fetch(apiURL);
+                const data = await response.json();
+                const container = document.getElementById('profiles-container');
+                container.innerHTML = ''; 
+
+                if (!data || data.length === 0 || data.error) {
+                    container.innerHTML = '<div class="loading">Abhi tak koi profile nahi mili. Pehle form bharein!</div>';
+                    return;
+                }
+
+                data.forEach(artist => {
+                    const name = getValue(artist, "Full Name") || "Anonymous Artist";
+                    const role = getValue(artist, "Role") || "Artist";
+                    const experience = getValue(artist, "Experience") || "N/A";
+                    const city = getValue(artist, "City") || "N/A";
+                    const genre = getValue(artist, "Genre") || "N/A";
+                    const lookingFor = getValue(artist, "Looking For") || "N/A";
+                    const lookingType = getValue(artist, "Free / Paid") || "N/A";
+                    const bio = getValue(artist, "Tell Us About Yourself") || "";
+                    
+                    const instaId = getValue(artist, "Insta id") || "";
+                    const instaLink = instaId ? (instaId.includes('instagram.com') ? instaId : `https://instagram.com/${instaId.replace('@', '')}`) : "https://instagram.com";
+                    const ytLink = getValue(artist, "Youtube/Spotify Link") || "";
+
+                    let linksHTML = `<a href="${instaLink}" target="_blank" class="btn">Connect on Insta</a>`;
+                    if (ytLink && ytLink.trim() !== "") {
+                        linksHTML += `<a href="${ytLink}" target="_blank" class="btn youtube">Listen Work (YouTube/Spotify)</a>`;
+                    }
+
+                    const cardHTML = `
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150" alt="Profile">
+                            <h3>${name}</h3>
+                            <span class="tag">${role}</span>
+                            <div class="info-list">
+                                <p><strong>Genre:</strong> ${genre}</p>
+                                <p><strong>Experience:</strong> ${experience}</p>
+                                <p><strong>Location:</strong> ${city}</p>
+                                <p><strong>Looking For:</strong> ${lookingFor} (${lookingType})</p>
+                            </div>
+                            ${bio ? `<p class="bio">"${bio}"</p>` : ''}
+                            <div class="links-container">
+                                ${linksHTML}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+            } catch (error) {
+                console.error("Error loading profiles:", error);
+                document.getElementById('profiles-container').innerHTML = '<div class="loading" style="color: #ff0055;">Profiles load karne mein error aaya! SheetDB setup check karein.</div>';
+            }
+        }
+
+        fetchProfiles();
+    </script>
 </body>
 </html>
