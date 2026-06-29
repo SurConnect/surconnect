@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SurConnect Profile</title>
-
-<link rel="stylesheet" href="./style.css">
-</head>
-
-<body>
-
-<div id="profile"></div>
-
-<script>
 const container = document.getElementById("profile");
 
-// Get selected user from localStorage
 const user = JSON.parse(localStorage.getItem("selectedUser"));
 
 if (!user) {
@@ -26,8 +10,8 @@ if (!user) {
     return user[key] || "";
   }
 
-  // Safe Instagram link
   const insta = get("Instagram Link");
+
   const safeInsta = insta.startsWith("http")
     ? insta
     : "https://" + insta;
@@ -43,13 +27,17 @@ if (!user) {
       <p><b>Genre:</b> ${get("Genre")}</p>
       <p><b>Looking For:</b> ${get("Looking For")}</p>
 
-      <p><b>About:</b></p>
+      <hr>
+
+      <p><b>About</b></p>
       <p>${get("About")}</p>
 
+      <hr>
+
       <p>
-        <b>Instagram:</b>
+        <b>Instagram:</b><br>
         <a href="${safeInsta}" target="_blank">
-          Open Instagram Profile
+          🔗 Open Instagram Profile
         </a>
       </p>
 
@@ -60,7 +48,3 @@ if (!user) {
     </div>
   `;
 }
-</script>
-
-</body>
-</html>
