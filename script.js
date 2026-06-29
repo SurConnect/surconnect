@@ -1,23 +1,38 @@
-const joinBtn=document.getElementById("joinBtn");
+const api = "https://sheetdb.io/api/v1/ixxby18l8vjrm";
 
-joinBtn.addEventListener("click",function(){
-alert("Welcome to SurConnect!");
-});
+const members = document.getElementById("members");
 
-const search=document.getElementById("search");
-const cards=document.querySelectorAll(".card");
+fetch(api)
+.then(res => res.json())
+.then(data => {
 
-search.addEventListener("keyup",function(){
+members.innerHTML="";
 
-const value=search.value.toLowerCase();
+data.forEach(user=>{
 
-cards.forEach(function(card){
+members.innerHTML += `
 
-if(card.innerText.toLowerCase().includes(value)){
-card.style.display="block";
-}else{
-card.style.display="none";
-}
+<div class="card">
+
+<h2>${user["Full Name"]}</h2>
+
+<p><b>Role:</b> ${user["Role"]}</p>
+
+<p><b>City:</b> ${user["City"]}</p>
+
+<p><b>Experience:</b> ${user["Experience "]}</p>
+
+<p><b>Genre:</b> ${user["Genre"]}</p>
+
+<p><b>Looking For:</b> ${user["Looking For"]}</p>
+
+<p><b>${user["Free / Paid"]}</b></p>
+
+<button>View Profile</button>
+
+</div>
+
+`;
 
 });
 
