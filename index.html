@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Connect - Find Singers & Producers</title>
@@ -55,13 +54,10 @@
     <script>
         const apiURL = "https://sheetdb.io/api/v1/ixxby18l8vjrm";
 
-        // Helper function taaki kisi bhi tarah ke spaces/case ko match kiya ja sake
         function getValue(obj, key) {
             if (!obj) return "";
-            // Pehle exact match check karein
             if (obj[key] !== undefined) return obj[key];
             
-            // Agar exact match na mile, to bina space aur lowercase karke dhoondhein
             const normalizedKey = key.toLowerCase().replace(/\s+/g, '');
             for (let k in obj) {
                 if (k.toLowerCase().replace(/\s+/g, '') === normalizedKey) {
