@@ -1,1 +1,1 @@
-// SurConnect JavaScript
+// alert("SurConnect JS Connected!");SurConnect JavaScript
