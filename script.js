@@ -5,27 +5,24 @@ const searchInput = document.getElementById("search");
 
 let allMembers = [];
 
-// Fetch data
+// LOAD DATA
 async function loadMembers() {
   try {
     const res = await fetch(api);
-    const data = await res.json();
-
-    allMembers = data || [];
+    allMembers = await res.json();
     render(allMembers);
-
   } catch (err) {
-    console.log(err);
     membersContainer.innerHTML = "<p>Data load failed</p>";
+    console.log(err);
   }
 }
 
-// Safe getter (MOST IMPORTANT)
+// SAFE GET
 function get(user, key) {
   return (user[key] || "").toString().trim();
 }
 
-// Render UI
+// RENDER
 function render(data) {
   membersContainer.innerHTML = "";
 
@@ -44,29 +41,39 @@ function render(data) {
         <p><b>Instagram:</b> ${get(user, "Instagram Link")}</p>
 
         <p>${get(user, "About")}</p>
-
-        <button>View Profile</button>
       </div>
     `;
   });
 }
 
-// Search
+// SEARCH
 searchInput.addEventListener("input", function () {
   const value = this.value.toLowerCase().trim();
 
-  const filtered = allMembers.filter(user => {
-    return (
-      get(user, "Name").toLowerCase().includes(value) ||
-      get(user, "Role").toLowerCase().includes(value) ||
-      get(user, "City").toLowerCase().includes(value) ||
-      get(user, "Genre").toLowerCase().includes(value) ||
-      get(user, "Experience").toLowerCase().includes(value)
-    );
-  });
+  const filtered = allMembers.filter(user =>
+    get(user, "Name").toLowerCase().includes(value) ||
+    get(user, "Role").toLowerCase().includes(value) ||
+    get(user, "City").toLowerCase().includes(value) ||
+    get(user, "Genre").toLowerCase().includes(value) ||
+    get(user, "Experience").toLowerCase().includes(value)
+  );
 
   render(filtered);
 });
 
-// Start app
+// ROLE FILTER (GLOBAL FUNCTION)
+function filterRole(role) {
+  if (role === "All") {
+    render(allMembers);
+    return;
+  }
+
+  const filtered = allMembers.filter(user =>
+    get(user, "Role").toLowerCase().includes(role.toLowerCase())
+  );
+
+  render(filtered);
+}
+
+// START
 loadMembers();
