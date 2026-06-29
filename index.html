@@ -1,186 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SurConnect</title>
-<link rel="stylesheet" href="style.css">
-<style>
-<script src="script.js"></script> 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0f0f0f;
-  color:white;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurConnect</title>
 
-/* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-}
-
-.hero h1{
-  font-size:60px;
-  color:#FFD400;
-  text-shadow:0 0 20px #FFD400;
-}
-
-.hero p{
-  font-size:18px;
-  max-width:600px;
-  opacity:0.8;
-  margin-bottom:25px;
-}
-
-.join-btn{
-  background:#FFD400;
-  color:#111;
-  padding:14px 35px;
-  border-radius:50px;
-  font-weight:bold;
-  text-decoration:none;
-  transition:0.3s;
-}
-
-.join-btn:hover{
-  transform:scale(1.05);
-}
-
-/* SEARCH */
-#searchBox{
-  padding:12px;
-  width:80%;
-  max-width:400px;
-  border-radius:25px;
-  border:none;
-  outline:none;
-  margin:30px auto;
-  display:block;
-}
-
-/* SECTION */
-.section{
-  padding:40px 20px;
-  text-align:center;
-}
-
-.section h2{
-  color:#FFD400;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
-  max-width:1000px;
-  margin:auto;
-  margin-top:20px;
-}
-
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:20px;
-  border-radius:15px;
-  transition:0.3s;
-  animation:fadeIn 0.5s ease-in-out;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  border-color:#FFD400;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(0.9);}
-  to{opacity:1; transform:scale(1);}
-}
-</style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>SurConnect</h1>
-  <p>Connect with Singers, Rappers, Lyricists, Beat Makers & Music Producers.</p>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <h2>🎵 SurConnect</h2>
+        </div>
 
-  <a href="https://forms.gle/gi7yRF1G1bzguBGD6" class="join-btn" target="_blank">
-    Join Now
-  </a>
-</div>
+        <div class="search-box">
+            <input type="text" placeholder="Search artists...">
+        </div>
 
-<!-- SEARCH -->
-<input type="text" id="searchBox" placeholder="Search Singer, Rapper, Producer...">
+        <div class="join-btn">
+            <button>Join Now</button>
+        </div>
+    </header>
 
-<!-- ARTISTS -->
-<div class="section">
-  <h2>Live Artists</h2>
-  <div class="grid" id="artistList">Loading...</div>
-</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Connect with Singers, Rappers, Producers & Lyricists</h1>
+        <p>India's growing music collaboration community.</p>
+    </section>
 
-<script>
-const apiURL = "https://sheetdb.io/api/v1/ixxby18l8vjrm";
+    <!-- Members -->
+    <section class="members">
 
-let allData = [];
+        <div class="card">
+            <img src="https://via.placeholder.com/100" alt="Profile">
+            <h3>Artist Name</h3>
+            <p>Singer • Mumbai</p>
+            <button>View Profile</button>
+        </div>
 
-async function loadArtists(){
-  try{
-    const res = await fetch(apiURL);
-    allData = await res.json();
-    render(allData);
-  }catch(err){
-    document.getElementById("artistList").innerHTML = "Failed to load data";
-  }
-}
+        <div class="card">
+            <img src="https://via.placeholder.com/100" alt="Profile">
+            <h3>Artist Name</h3>
+            <p>Producer • Delhi</p>
+            <button>View Profile</button>
+        </div>
 
-function render(data){
-  const container = document.getElementById("artistList");
-  container.innerHTML = "";
+        <div class="card">
+            <img src="https://via.placeholder.com/100" alt="Profile">
+            <h3>Artist Name</h3>
+            <p>Rapper • Pune</p>
+            <button>View Profile</button>
+        </div>
 
-  if(data.length === 0){
-    container.innerHTML = "<p>No artists found</p>";
-    return;
-  }
+    </section>
 
-  data.forEach(item=>{
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <h3>${item.name || "Unknown"}</h3>
-      <p><b>Role:</b> ${item.role || "Not specified"}</p>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-/* SEARCH FILTER */
-document.getElementById("searchBox").addEventListener("input", function(){
-  const value = this.value.toLowerCase();
-
-  const filtered = allData.filter(item=>{
-    return (
-      (item.name || "").toLowerCase().includes(value) ||
-      (item.role || "").toLowerCase().includes(value)
-    );
-  });
-
-  render(filtered);
-});
-
-loadArtists();
-</script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 
 </body>
 </html>
