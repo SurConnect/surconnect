@@ -22,28 +22,68 @@ function get(user, key) {
   return (user[key] || "").toString().trim();
 }
 
-// RENDER
+// RENDER LIST
 function render(data) {
   membersContainer.innerHTML = "";
 
-  data.forEach(user => {
+  data.forEach((user, index) => {
     membersContainer.innerHTML += `
       <div class="card">
+
         <h2>${get(user, "Name")}</h2>
 
         <p><b>Role:</b> ${get(user, "Role")}</p>
-        <p><b>Experience:</b> ${get(user, "Experience")}</p>
         <p><b>City:</b> ${get(user, "City")}</p>
         <p><b>Genre:</b> ${get(user, "Genre")}</p>
-        <p><b>Looking For:</b> ${get(user, "Looking For")}</p>
-        <p><b>Type:</b> ${get(user, "Free/paid")}</p>
 
-        <p><b>Instagram:</b> ${get(user, "Instagram Link")}</p>
+        <button onclick="openProfile(${index})">View Profile</button>
 
-        <p>${get(user, "About")}</p>
       </div>
     `;
   });
+}
+
+// PROFILE PAGE
+function openProfile(index) {
+  const user = allMembers[index];
+
+  membersContainer.innerHTML = `
+    <div class="profile-card">
+
+      <h1>${get(user, "Name")}</h1>
+
+      <p><b>Role:</b> ${get(user, "Role")}</p>
+      <p><b>Experience:</b> ${get(user, "Experience")}</p>
+      <p><b>City:</b> ${get(user, "City")}</p>
+      <p><b>Genre:</b> ${get(user, "Genre")}</p>
+      <p><b>Looking For:</b> ${get(user, "Looking For")}</p>
+      <p><b>About:</b> ${get(user, "About")}</p>
+
+      <p>
+        <b>Instagram:</b>
+        <a href="${get(user, "Instagram Link")}" target="_blank">
+          Open Instagram
+        </a>
+      </p>
+
+      <button onclick="render(allMembers)">⬅ Back</button>
+
+    </div>
+  `;
+}
+
+// ROLE FILTER
+function filterRole(role) {
+  if (role === "All") {
+    render(allMembers);
+    return;
+  }
+
+  const filtered = allMembers.filter(user =>
+    get(user, "Role").toLowerCase().includes(role.toLowerCase())
+  );
+
+  render(filtered);
 }
 
 // SEARCH
@@ -60,20 +100,6 @@ searchInput.addEventListener("input", function () {
 
   render(filtered);
 });
-
-// ROLE FILTER (GLOBAL FUNCTION)
-function filterRole(role) {
-  if (role === "All") {
-    render(allMembers);
-    return;
-  }
-
-  const filtered = allMembers.filter(user =>
-    get(user, "Role").toLowerCase().includes(role.toLowerCase())
-  );
-
-  render(filtered);
-}
 
 // START
 loadMembers();
