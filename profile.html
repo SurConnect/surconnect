@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SurConnect Profile</title>
+
+<link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<div id="profile"></div>
+
+<script>
+const container = document.getElementById("profile");
+
+// Get selected user from localStorage
+const user = JSON.parse(localStorage.getItem("selectedUser"));
+
+if (!user) {
+  container.innerHTML = "<p>No profile data found</p>";
+} else {
+
+  function get(key) {
+    return user[key] || "";
+  }
+
+  // Safe Instagram link
+  const insta = get("Instagram Link");
+  const safeInsta = insta.startsWith("http")
+    ? insta
+    : "https://" + insta;
+
+  container.innerHTML = `
+    <div class="profile-card">
+
+      <h1>${get("Name")}</h1>
+
+      <p><b>Role:</b> ${get("Role")}</p>
+      <p><b>Experience:</b> ${get("Experience")}</p>
+      <p><b>City:</b> ${get("City")}</p>
+      <p><b>Genre:</b> ${get("Genre")}</p>
+      <p><b>Looking For:</b> ${get("Looking For")}</p>
+
+      <p><b>About:</b></p>
+      <p>${get("About")}</p>
+
+      <p>
+        <b>Instagram:</b>
+        <a href="${safeInsta}" target="_blank">
+          Open Instagram Profile
+        </a>
+      </p>
+
+      <button onclick="window.location.href='index.html'">
+        ⬅ Back to Home
+      </button>
+
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
