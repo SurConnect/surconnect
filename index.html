@@ -28,13 +28,26 @@
 
 </header>
 
-<!-- FILTERS -->
-<div class="filters">
-  <button onclick="filterRole('All')">All</button>
-  <button onclick="filterRole('Singer')">Singer</button>
-  <button onclick="filterRole('Rapper')">Rapper</button>
-  <button onclick="filterRole('Music Producer')">Producer</button>
-  <button onclick="filterRole('Lyricist')">Lyricist</button>
+<div class="filters-container">
+  <div class="filters">
+    <button onclick="filterRole('All')">All</button>
+    <button onclick="filterRole('Singer')">Singer</button>
+    <button onclick="filterRole('Rapper')">Rapper</button>
+    <button onclick="filterRole('Music Producer')">Producer</button>
+    <button onclick="filterRole('Songwriter/lyricist')">Lyricist</button>
+    <button onclick="filterRole('BeatBoxer')">BeatBoxer</button>
+    <button onclick="filterRole('Mixing-Mastering Engineer')">Engineer</button>
+  </div>
+  
+  <div class="city-filter-box">
+    <select id="cityFilter" onchange="filterCity()">
+      <option value="All">🔍 All Cities</option>
+      <option value="Mumbai">Mumbai</option>
+      <option value="Delhi">Delhi</option>
+      <option value="Kolkata">Kolkata</option>
+      <option value="Bangalore">Bangalore</option>
+      </select>
+  </div>
 </div>
 
 <section class="hero">
