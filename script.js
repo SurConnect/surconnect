@@ -25,7 +25,6 @@ async function loadMembers() {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("approved", true)
     .order("created_at", { ascending: false });
 
   if (error) {
