@@ -36,13 +36,22 @@ body {
   background: #e6004c;
 }
 
-/* FILTERS */
+/* FILTERS CONTAINER */
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: white;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
 .filters {
   display: flex;
   gap: 10px;
-  padding: 10px;
   flex-wrap: wrap;
-  background: white;
 }
 
 .filters button {
@@ -51,10 +60,20 @@ body {
   border-radius: 20px;
   cursor: pointer;
   background: #eee;
+  font-weight: 500;
 }
 
 .filters button:hover {
   background: #ccc;
+}
+
+.city-filter-box select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* HERO */
@@ -71,57 +90,45 @@ body {
   padding: 15px;
 }
 
-/* CARD */
+/* CARD BASIC & DYNAMIC COLORS */
 .card {
   background: white;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-top: 5px solid #ccc; /* Default border */
+  position: relative;
 }
 
-/* PROFILE PAGE */
-.profile-card {
-  background: white;
-  padding: 25px;
-  margin: 20px;
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* Role-wise Border Colors */
+.card-singer { border-top-color: #ff0055; }
+.card-rapper { border-top-color: #00d2ff; }
+.card-music-producer { border-top-color: #9b5de5; }
+.card-songwriter-lyricist { border-top-color: #f15bb5; }
+.card-beatboxer { border-top-color: #fee440; }
+.card-mixing-mastering-engineer { border-top-color: #00f5d4; }
 
-.profile-card h1 {
-  margin-bottom: 10px;
-}
-
-.profile-card p {
-  margin: 6px 0;
-  line-height: 1.5;
-}
-
-.profile-card a {
+/* Dynamic Badges style */
+.role-badge {
   display: inline-block;
-  margin-top: 10px;
-  color: #e1306c;
+  padding: 3px 8px;
+  font-size: 11px;
+  text-transform: uppercase;
   font-weight: bold;
-  text-decoration: none;
-}
-
-.profile-card a:hover {
-  text-decoration: underline;
-}
-
-.profile-card button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: #111;
+  border-radius: 4px;
   color: white;
-  cursor: pointer;
+  margin-top: 5px;
 }
+.badge-singer { background: #ff0055; }
+.badge-rapper { background: #00d2ff; color: black; }
+.badge-music-producer { background: #9b5de5; }
+.badge-songwriter-lyricist { background: #f15bb5; }
+.badge-beatboxer { background: #fee440; color: black; }
+.badge-mixing-mastering-engineer { background: #00f5d4; color: black; }
+.badge-other { background: #555; }
 
-.profile-card button:hover {
-  background: #333;
-}
+/* Card Content adjustments */
+.card h2 { margin-top: 5px; margin-bottom: 10px; font-size: 22px; }
+.card p { margin: 5px 0; font-size: 14px; }
+.card a { display: inline-block; margin-top: 10px; color: #e1306c; font-weight: bold; text-decoration: none; }
+
