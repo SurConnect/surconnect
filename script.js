@@ -37,12 +37,13 @@ function render(data) {
       <div class="card">
         <h2>${get(user, "Name")}</h2>
 
-        <p><b>Role:</b> ${get(user, "Role")}</p>
-        <p><b>Experience:</b> ${get(user, "Experience")}</p>
-        <p><b>City:</b> ${get(user, "City")}</p>
-        <p><b>Genre:</b> ${get(user, "Genre")}</p>
-        <p><b>Looking For:</b> ${get(user, "Looking For")}</p>
-        <p><b>Free/Paid:</b> ${get(user, "Free/paid")}</p>
+       <p><b>Role:</b> ${get(user, "Role")}</p>
+<p><b>Experience:</b> ${get(user, "Experience")}</p>
+<p><b>City:</b> ${get(user, "City")}</p>
+<p><b>Genre:</b> ${get(user, "Genre")}</p>
+<p><b>Looking For:</b> ${get(user, "Looking For")}</p>
+<p><b>Free/Paid:</b> ${get(user, "Free/Paid")}</p>
+<p><b>About:</b> ${get(user, "About")}</p>
 
         ${
           get(user, "Instagram Link")
